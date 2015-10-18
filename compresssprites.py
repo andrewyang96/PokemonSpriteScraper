@@ -8,9 +8,9 @@ def getAllSprites(directory):
         os.mkdir(directory + "/firstframe")
     if not os.path.exists(directory + "/transparent"):
         os.mkdir(directory + "/transparent")
-    """
     if not os.path.exists(directory + "/compressed"):
         os.mkdir(directory + "/compressed")
+    """
     if not os.path.exists(directory + "/grayscale"):
         os.mkdir(directory + "/grayscale")
     if not os.path.exists(directory + "/bw"):
@@ -37,8 +37,9 @@ def extractFirstFrameCompressed(pokemon, directory):
     # extract PNGs from <directory>/transparent
     im = Image.open(os.path.join(directory, "transparent", pokemon+".png"))
     width, height = im.size
-    im = im.resize((width/6, height/6), Image.ANTIALIAS)
+    im = im.resize((width/2, height/2), Image.ANTIALIAS)
     im.save(os.path.join(directory, "compressed", pokemon+"-"+directory+".png"), format="PNG")
+    """
     # then grayscale it
     print "Converting to grayscale"
     pixdata = im.load()
@@ -58,6 +59,7 @@ def extractFirstFrameCompressed(pokemon, directory):
     im2 = im2.resize((width/4, height/4), Image.NEAREST)
     im2.save(os.path.join(directory, "bw", pokemon+"-"+directory+".png"), format="PNG")
     im2.close()
+    """
 
 def RGBA2Grayscale(rgba):
     r, g, b, a = rgba
@@ -72,11 +74,9 @@ def compressMain():
     for sprite, pokemon in zip(sprites, pokemons):
         print "Extracting first frame of", pokemon, "front"
         extractFirstFrame(sprite, pokemon, "front")
-    """
     for pokemon in pokemons:
         print "Compressing", pokemon, "front"
         extractFirstFrameCompressed(pokemon, "front")
-    """
 
     # front
     print "Getting all back sprites"
@@ -85,9 +85,7 @@ def compressMain():
     for sprite, pokemon in zip(sprites, pokemons):
         print "Extracting first frame of", pokemon, "back"
         extractFirstFrame(sprite, pokemon, "back")
-    """
     for pokemon in pokemons:
         print "Compressing", pokemon, "back"
         extractFirstFrameCompressed(pokemon, "back")
-    """
     print "Done!"
