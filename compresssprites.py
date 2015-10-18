@@ -62,7 +62,7 @@ def RGBA2Grayscale(rgba):
     l = int(round(r * 299/1000. + g * 587/1000. + b * 114/1000.))
     return (l, l, l, a)
 
-if __name__ == "__main__":
+def compressMain():
     # front
     print "Getting all front sprites"
     sprites = getAllSprites("front")
