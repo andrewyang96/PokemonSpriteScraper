@@ -8,18 +8,20 @@ def getAllSprites(directory):
         os.mkdir(directory + "/firstframe")
     if not os.path.exists(directory + "/transparent"):
         os.mkdir(directory + "/transparent")
+    """
     if not os.path.exists(directory + "/compressed"):
         os.mkdir(directory + "/compressed")
     if not os.path.exists(directory + "/grayscale"):
         os.mkdir(directory + "/grayscale")
     if not os.path.exists(directory + "/bw"):
         os.mkdir(directory + "/bw")
+    """
     return glob.glob(os.path.join(directory, "sprites", "*.gif"))
 
 def extractFirstFrame(filename, pokemon, directory):
     im = Image.open(filename)
     im.seek(0)
-    im.save(os.path.join(directory, "firstframe", pokemon+".gif"))
+    im.save(os.path.join(directory, "firstframe", pokemon+"-"+directory+".gif"))
     # save as PNG with transparent background
     print "Converting to RGBA with white transparent background"
     im = im.convert("RGBA")
@@ -70,9 +72,11 @@ def compressMain():
     for sprite, pokemon in zip(sprites, pokemons):
         print "Extracting first frame of", pokemon, "front"
         extractFirstFrame(sprite, pokemon, "front")
+    """
     for pokemon in pokemons:
         print "Compressing", pokemon, "front"
         extractFirstFrameCompressed(pokemon, "front")
+    """
 
     # front
     print "Getting all back sprites"
@@ -81,7 +85,9 @@ def compressMain():
     for sprite, pokemon in zip(sprites, pokemons):
         print "Extracting first frame of", pokemon, "back"
         extractFirstFrame(sprite, pokemon, "back")
+    """
     for pokemon in pokemons:
         print "Compressing", pokemon, "back"
         extractFirstFrameCompressed(pokemon, "back")
+    """
     print "Done!"
